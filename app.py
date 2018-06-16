@@ -4,24 +4,22 @@ import os
 
 from utils.db_builder import *
 
-
 app = Flask(__name__)
 
-
-
-# ------------------ Login Stuff ------------------------------
+# ------------------ Login------------------------------
 app.secret_key = "messes up if we have this for real"
 BAD_USER = -1
 BAD_PASS = -2
 GOOD = 1
 user = ""
 
-
 @app.route('/')
 def index():
 	tableCreation()
+        # If logged in:
 	if session.has_key('user'):
 		return redirect( url_for('home') )
+        # If not logged in yet:
 	else:
 		return render_template("login.html")
 
@@ -84,7 +82,6 @@ def logout():
     return redirect(url_for('root'))
 
 #============================================================================
-
 @app.route('/home', methods = ['POST','GET'])
 def home():
 
