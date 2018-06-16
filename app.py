@@ -152,7 +152,8 @@ def forum(location=0):
 
 @app.route('/forumconfig', methods = ['POST','GET'])
 def forumconfig():
-    print len(request.args)
+    if len(request.args) == 1:
+        
     return 'testing'
 
 if __name__=='__main__':
