@@ -18,8 +18,6 @@ user = ""
 @app.route('/')
 def root():
     tableCreation()
-
-
     if session.has_key('user') and user != "":
         return redirect( url_for('home') )
     # If not logged in yet:
@@ -56,8 +54,6 @@ def login():
 # ------------------- Register ---------------------------------
 @app.route('/register', methods = ['POST', 'GET'])
 def register():
-
-
     user = request.form['user']
     password = request.form['pass']
     name = request.form['name']
@@ -132,6 +128,8 @@ def events():
         ID = getUserID(session['user'])
     except:
         return redirect( url_for('root'))
+    event = table_builder(get_events()).decode('utf-8')
+    return render_template('events.html', event = event)
 
 # 0 = View All Category
 # 1 = View All Topic in Category
