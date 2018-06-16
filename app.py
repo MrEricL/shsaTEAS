@@ -25,6 +25,7 @@ def index():
     else:
         return render_template("login.html")
 
+
 # ------------------- Login -----------------------------------
 @app.route('/login', methods = ['POST','GET'])
 def login():
@@ -86,11 +87,17 @@ def logout():
 # ------------------- Calendar ---------------------------------
 @app.route('/calendar')
 def calendar():
+    if not session.has_key('user') or user == "":
+        return render_template("login.html")
+
     return render_template("calendar.html")
 
 #============================================================================
 @app.route('/home', methods = ['POST','GET'])
 def home():
+
+    if not session.has_key('user') or user == "":
+        return render_template("login.html")
 
     ID = getUserID(session['user'])
     #INFO ================================
@@ -108,6 +115,8 @@ def home():
 
 @app.route('/events', methods = ['POST','GET'])
 def events():
+    if not session.has_key('user') or user == "":
+        return render_template("login.html")
     ID = getUserID(session['user'])
     event = table_builder(get_events()).decode('utf-8')
 
