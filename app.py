@@ -3,6 +3,7 @@ import sqlite3
 import os
 
 from utils.db_builder import *
+from utils.api import *
 
 app = Flask(__name__)
 
@@ -104,7 +105,7 @@ def events():
     ID = getUserID(session['user'])
     event = table_builder(get_events()).decode('utf-8')
 
-    r
+    return render_template('events.html', event = event)
     
 if __name__=='__main__':
 	app.run(debug=True)
