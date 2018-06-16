@@ -81,6 +81,11 @@ def logout():
     flash('You have been logged out successfully')
     return redirect(url_for('root'))
 
+# ------------------- Logout ---------------------------------
+@app.route('/calendar')
+def calendar():
+    return render_template("calendar.html")
+
 #============================================================================
 @app.route('/home', methods = ['POST','GET'])
 def home():

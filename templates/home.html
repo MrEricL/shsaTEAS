@@ -30,12 +30,15 @@
     <br>
     <br>
     <div class="container">
-     <h4> Hello {{ name }}! </h4>
+      <h4> Hello {{ name }}! </h4>
+      <form class="form-register" action="/calendar">
+       <button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color:lightgreen;color:black">Calendar</button>
+      </form>
     </div> 
     <br>
     <br>
      <div class="container">
-      <form class="form-register" method="POST" action="/register">
+      <form class="form-register" method="POST" action="/logout">
        <button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color:lightgreen;color:black">Logout</button>
       </form>
 
