@@ -99,7 +99,12 @@ def home():
     #=====================================
     return render_template('home.html', name=name)
 
+@app.route('/events', methods = ['POST','GET'])
+def events():
+    ID = getUserID(session['user'])
+    event = table_builder(get_events()).decode('utf-8')
 
+    r
+    
 if __name__=='__main__':
 	app.run(debug=True)
-
