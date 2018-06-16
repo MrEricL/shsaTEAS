@@ -2,8 +2,9 @@ from flask import Flask, render_template, request, session, url_for, flash, redi
 import sqlite3
 import os
 
-from utils.db_builder import *
 from utils.api import *
+from utils.db_builder import *
+from utils.forum import *
 
 app = Flask(__name__)
 
@@ -15,18 +16,19 @@ GOOD = 1
 user = ""
 
 @app.route('/')
-def index():
-	tableCreation()
-        # If logged in:
-	if session.has_key('user'):
-		return redirect( url_for('home') )
-        # If not logged in yet:
-	else:
-		return render_template("login.html")
+def root():
+    tableCreation()
+    if session.has_key('user') and user != "":
+        return redirect( url_for('home') )
+    # If not logged in yet:
+    else:
+        return render_template("login.html")
+
 
 # ------------------- Login -----------------------------------
 @app.route('/login', methods = ['POST','GET'])
 def login():
+
     user = request.form['user']
     #print user
     passw = request.form['pass']
@@ -46,6 +48,7 @@ def login():
     if result == BAD_PASS:
         flash('Incorrect password. Please try again.')
         return redirect( url_for('root') )
+
     return redirect( url_for('root') )
 
 # ------------------- Register ---------------------------------
@@ -78,6 +81,11 @@ def logout():
         ID = getUserID(session['user'])
     except:
         return redirect( url_for('root'))
+
+    print "Session LogOut================"
+    print session
+    print "=============================="
+
     session.pop('user')
     flash('You have been logged out successfully')
     return redirect(url_for('root'))
@@ -85,11 +93,19 @@ def logout():
 # ------------------- Calendar ---------------------------------
 @app.route('/calendar')
 def calendar():
+    try:
+        ID = getUserID(session['user'])
+    except:
+        return redirect( url_for('root'))
     return render_template("calendar.html")
 
 #============================================================================
 @app.route('/home', methods = ['POST','GET'])
 def home():
+    try:
+        ID = getUserID(session['user'])
+    except:
+        return redirect( url_for('root'))
 
     ID = getUserID(session['user'])
     #INFO ================================
@@ -97,8 +113,9 @@ def home():
 
     print  'config',getConfig(ID)
 
-    print 'name',getName(ID)
     name = getName(ID)
+    print 'name', name
+    
 
     print 'usertype',getUserType(ID)
 
@@ -107,10 +124,35 @@ def home():
 
 @app.route('/events', methods = ['POST','GET'])
 def events():
-    ID = getUserID(session['user'])
+    try:
+        ID = getUserID(session['user'])
+    except:
+        return redirect( url_for('root'))
     event = table_builder(get_events()).decode('utf-8')
-
     return render_template('events.html', event = event)
+
+# 0 = View All Category
+# 1 = View All Topic in Category
+# 2 = View All Post in Topic
+@app.route('/forum', methods = ['POST','GET'])
+def forum(location=0):
+    try:
+        ID = getUserID(session['user'])
+    except:
+        return redirect( url_for('root'))
     
+    cat = categoryTableBuilder(getAllCat())
+
+    if location == 0:
+        return render_template('forum.html', cat = cat)
+    else:
+        return render_template('forum.html', cat = cat)
+
+@app.route('/forumconfig', methods = ['POST','GET'])
+def forumconfig():
+    if len(request.args) == 1:
+        
+    return 'testing'
+
 if __name__=='__main__':
 	app.run(debug=True)
