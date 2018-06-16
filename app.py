@@ -163,7 +163,7 @@ def forum(location=0):
 
 @app.route('/forumconfig', methods = ['POST','GET'])
 def forumconfig():
-    print request.args
+    print len(request.args)
     return 'testing'
 
 
