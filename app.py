@@ -55,12 +55,20 @@ def register():
     user = request.form['user']
     password = request.form['pass']
     name = request.form['name']
+    userType = request.form['userType']
+
+    if userType == 'Parent':
+        userType = 0
+    elif userType == 'Student':
+        userType = 1
+    else:
+        userType = 2
 
     if checkUsername(user):
         flash('Username unavailable. Please try another username.')
         return redirect(url_for('root'))
     else:
-        addUser(user,password,name, 0)
+        addUser(user,password,name, 0, userType)
         session['user'] = user
         return redirect( url_for('home'))
 
@@ -79,7 +87,19 @@ def logout():
 
 @app.route('/home', methods = ['POST','GET'])
 def home():
-	return render_template('home.html')
+
+    ID = getUserID(session['user'])
+    #INFO ================================
+    print 'username', getUserName(ID)
+
+    print  'config',getConfig(ID)
+
+    print 'name',getName(ID)
+
+    print 'usertype',getUserType(ID)
+
+    #=====================================
+    return render_template('home.html')
 
 
 if __name__=='__main__':

@@ -13,7 +13,7 @@ def tableCreation():
         db = sqlite3.connect(DIR) #open if f exists, otherwise create
         c = db.cursor()         #facilitates db ops
 
-        users_table = 'CREATE TABLE users (username TEXT PRIMARY KEY, password BLOB, userID INTEGER, name TEXT);'
+        users_table = 'CREATE TABLE users (username TEXT PRIMARY KEY, password BLOB, userID INTEGER, name TEXT, config INTEGER, userType INTEGER);'
         c.execute(users_table)
 
 
@@ -33,7 +33,7 @@ def check_password(hashed_password, user_password):
     return password == hashlib.sha256(key.encode()+user_password.encode()).hexdigest()
 
 #add a user
-def addUser(new_username, new_password, new_name, new_config):
+def addUser(new_username, new_password, new_name, new_config, new_userType):
     db = sqlite3.connect(DIR) #open if f exists, otherwise create
     c = db.cursor()         #facilitates db ops
     #global userID_counter
@@ -48,7 +48,7 @@ def addUser(new_username, new_password, new_name, new_config):
     #new_userID += 1
     hash_pass = hash_password(new_password)
     #print ('The string to store in the db is: ' + hash_pass)
-    c.execute('INSERT INTO users VALUES (?,?,?,?)',[new_username, hash_pass, new_userID, new_name])
+    c.execute('INSERT INTO users VALUES (?,?,?,?,?,?)',[new_username, hash_pass, new_userID, new_name, new_config, new_userType])
     db.commit()
     db.close() 
 #===========================================================================================================================================
@@ -62,8 +62,8 @@ def authenticate(user, passw):
           return -2
      
 
-def register(user, passw, name):
-     addUser(user,passw, name)
+def register(user, passw, name, userType):
+     addUser(user, passw, name, 0, userType)
 
 #==================================================================================================================================
 
@@ -107,6 +107,45 @@ def getUserName(ID):
     db = sqlite3.connect(DIR) #open if f exists, otherwise create
     c = db.cursor()         #facilitates db ops
     command = 'SELECT userID FROM users WHERE userID ="' + str(ID) + '";'
+    info = c.execute(command)
+
+    retVal = None
+    for user in info:
+        #print user
+        retVal = user[0]
+    db.close()
+    return retVal
+
+def getConfig(ID):
+    db = sqlite3.connect(DIR) #open if f exists, otherwise create
+    c = db.cursor()         #facilitates db ops
+    command = 'SELECT config FROM users WHERE userID ="' + str(ID) + '";'
+    info = c.execute(command)
+
+    retVal = None
+    for user in info:
+        #print user
+        retVal = user[0]
+    db.close()
+    return retVal
+
+def getName(ID):
+    db = sqlite3.connect(DIR) #open if f exists, otherwise create
+    c = db.cursor()         #facilitates db ops
+    command = 'SELECT name FROM users WHERE userID ="' + str(ID) + '";'
+    info = c.execute(command)
+
+    retVal = None
+    for user in info:
+        #print user
+        retVal = user[0]
+    db.close()
+    return retVal    
+
+def getUserType(ID):
+    db = sqlite3.connect(DIR) #open if f exists, otherwise create
+    c = db.cursor()         #facilitates db ops
+    command = 'SELECT userType FROM users WHERE userID ="' + str(ID) + '";'
     info = c.execute(command)
 
     retVal = None
