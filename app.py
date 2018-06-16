@@ -92,11 +92,12 @@ def home():
     print  'config',getConfig(ID)
 
     print 'name',getName(ID)
+    name = getName(ID)
 
     print 'usertype',getUserType(ID)
 
     #=====================================
-    return render_template('home.html')
+    return render_template('home.html', name=name)
 
 
 if __name__=='__main__':
