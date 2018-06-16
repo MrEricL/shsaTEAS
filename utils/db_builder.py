@@ -16,13 +16,16 @@ def tableCreation():
         users_table = 'CREATE TABLE users (username TEXT PRIMARY KEY, password BLOB, userID INTEGER, name TEXT, config INTEGER, userType INTEGER);'
         c.execute(users_table)
 
+        progress_table = 'CREATE TABLE progress (userID INTEGER, progressInt INTEGER);'
+        c.execute(progress_table)
+
 
         db.commit()
         db.close()
 
 #===========================================================================================================================================
 
-#MUTATORS/ADD VALUES TO TABLES
+#LOGIN STUFF
 
 def hash_password(password):
     key = uuid.uuid4().hex
@@ -51,7 +54,10 @@ def addUser(new_username, new_password, new_name, new_config, new_userType):
     c.execute('INSERT INTO users VALUES (?,?,?,?,?,?)',[new_username, hash_pass, new_userID, new_name, new_config, new_userType])
     db.commit()
     db.close() 
-#===========================================================================================================================================
+
+    addProgress(new_userID)
+
+#=====================================================================================================================================
 def authenticate(user, passw):
      info = getPass(user)
      if info == None:
@@ -64,6 +70,7 @@ def authenticate(user, passw):
 
 def register(user, passw, name, userType):
      addUser(user, passw, name, 0, userType)
+
 
 #==================================================================================================================================
 
@@ -116,6 +123,14 @@ def getUserName(ID):
     db.close()
     return retVal
 
+def addProgress(ID):
+    db = sqlite3.connect(DIR)
+    c = db.cursor()        
+
+    c.execute('INSERT INTO progress VALUES (?,?)',[ID, 0])
+    db.commit()
+    db.close()     
+
 def getConfig(ID):
     db = sqlite3.connect(DIR) #open if f exists, otherwise create
     c = db.cursor()         #facilitates db ops
@@ -154,3 +169,34 @@ def getUserType(ID):
         retVal = user[0]
     db.close()
     return retVal
+
+def getProgress(ID):
+    db = sqlite3.connect(DIR) #open if f exists, otherwise create
+    c = db.cursor()         #facilitates db ops
+    command = 'SELECT progress FROM progressInt WHERE userID ="' + str(ID) + '";'
+    info = c.execute(command)
+
+    retVal = None
+    for user in info:
+        #print user
+        retVal = user[0]
+    db.close()
+    return retVal
+
+#==================================================================================================================================
+
+def setConfig(ID):
+    db = sqlite3.connect(DIR)
+    c = db.cursor()
+    command = 'UPDATE users SET config = 1 WHERE userID = '+str(ID)+';'
+    c.execute(command)
+    db.commit()
+    db.close()
+
+def setProgress(ID, progress):
+    db = sqlite3.connect(DIR)
+    c = db.cursor()
+    command = 'UPDATE progress SET progressInt = {} WHERE userID ={};'
+    c.execute(command.format(ID, progress))
+    db.commit()
+    db.close()
