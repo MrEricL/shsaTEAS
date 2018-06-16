@@ -131,6 +131,18 @@ def events():
     event = table_builder(get_events()).decode('utf-8')
     return render_template('events.html', event = event)
 
+
+@app.route('/calenderdb', methods = ['POST','GET'])
+def calenderdb():
+    try:
+        ID = getUserID(session['user'])
+    except:
+        return redirect( url_for('root'))
+
+
+    print request.args
+
+
 # 0 = View All Category
 # 1 = View All Topic in Category
 # 2 = View All Post in Topic
@@ -151,7 +163,7 @@ def forum(location=0):
 @app.route('/forumconfig', methods = ['POST','GET'])
 def forumconfig():
     if len(request.args) == 1:
-        
+        print "hi"
     return 'testing'
 
 if __name__=='__main__':
