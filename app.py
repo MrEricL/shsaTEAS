@@ -113,24 +113,17 @@ def home():
 
 @app.route('/events', methods = ['POST','GET'])
 def events():
-
-
     ID = getUserID(session['user'])
     event = table_builder(get_events()).decode('utf-8')
-
+    # print "EVENTS : \n", event
     return render_template('events.html', event = event)
-
 
 @app.route('/forum', methods = ['POST','GET'])
 def forum():
-
-
     ID = getUserID(session['user'])
     event = table_builder(get_events()).decode('utf-8')
 
     return render_template('events.html', event = event)
-
-
 
 if __name__=='__main__':
 	app.run(debug=True)

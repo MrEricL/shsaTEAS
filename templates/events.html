@@ -4,13 +4,21 @@
 
 {% block content %}
 
-{{event |safe}}
+<style>
+  a{
+  color:white;
+  }
+</style>
+
+<div style="color:white !important">
+{{ event | safe }}
+</div>
 
 <h3 style="background-color:white;color:black">PassNYC has done excellent work with connecting and compliing different resources on their site. <br>
-  Visit them <a href="http://www.passnyc.org/our-partners/">here</a>.
+  Visit them <a href="http://www.passnyc.org/our-partners/">here</a>. <br>
+  Below is a map of their partners.
 </h3>
 
-Here's a map of their partners.
 <div class="mapouter">
   <div class="gmap_canvas">
     <br>
@@ -18,12 +26,13 @@ Here's a map of their partners.
   </div>
   <style>
     .mapouter{
-    color: white;
+    color: white !important ;
     text-align:right;
     height:500px;
     width:600px;
     }
     .gmap_canvas{
+    color:white !important;
     text-align:center;
     overflow:hidden;
     background:none!important;
