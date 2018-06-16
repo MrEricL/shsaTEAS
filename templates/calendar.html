@@ -137,17 +137,17 @@
         }
       ],
       eventDrop: function(event, delta, revertFunc) {
-        //addToDatabase(event.id, event.title, event.start, event.end)
-        // alert(event.title + " was dropped. \nevent start:" + event.start.format() + "\nevent end:" + event.end.format() );
-        //
-        // if (!confirm("Are you sure about this change?")) {
-        //   revertFunc();
-        // }
+        addToDatabase(event.id, event.title, event.start, event.end)
+        alert(event.title + " was dropped. \nevent start:" + event.start.format() + "\nevent end:" + event.end.format() );
+
+        if (!confirm("Are you sure about this change?")) {
+          revertFunc();
+        }
 
       },
 
       eventReceive: function(event) {
-        //addToDatabase(event.id, event.title, event.start, event.end)
+        addToDatabase(event.id, event.title, event.start, event.end)
       }
 
 
@@ -159,7 +159,7 @@
 
 var addToDatabase = function(id,t,s,e) {
   $.ajax({
-    url: "/add_To_Database",
+    url: "/calenderdb",
     type: "GET",
     data: {
       "id" : id,
