@@ -133,26 +133,16 @@ def events():
     except:
         return redirect( url_for('root'))
 
-    ID = getUserID(session['user'])
-    event = table_builder(get_events()).decode('utf-8')
-
-    return render_template('events.html', event = event)
-
-
 # 0 = View All Category
 # 1 = View All Topic in Category
 # 2 = View All Post in Topic
-
 @app.route('/forum', methods = ['POST','GET'])
 def forum(location=0):
     try:
         ID = getUserID(session['user'])
     except:
         return redirect( url_for('root'))
-
-    ID = getUserID(session['user'])
-
-
+    
     cat = categoryTableBuilder(getAllCat())
 
     if location == 0:
@@ -160,12 +150,10 @@ def forum(location=0):
     else:
         return render_template('forum.html', cat = cat)
 
-
 @app.route('/forumconfig', methods = ['POST','GET'])
 def forumconfig():
     print len(request.args)
     return 'testing'
-
 
 if __name__=='__main__':
 	app.run(debug=True)
