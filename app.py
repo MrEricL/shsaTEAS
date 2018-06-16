@@ -2,8 +2,8 @@ from flask import Flask, render_template, request, session, url_for, flash, redi
 import sqlite3
 import os
 
-from utils.db_builder import *
 from utils.api import *
+from utils.db_builder import *
 from utils.forum import *
 
 app = Flask(__name__)
