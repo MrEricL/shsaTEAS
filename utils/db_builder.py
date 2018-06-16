@@ -30,6 +30,10 @@ def tableCreation():
         posts_table = 'CREATE TABLE posts (userID INTEGER, catID INTEGER, topicID INTEGER, postID INTEGER, postDate DATETIME, body TEXT);'
         c.execute(posts_table)
 
+        calender_table = 'CREATE TABLE calender (userID INTEGER, calenderID INTEGER, title text, starting TEXT, ending TEXT);'
+        c.execute(calender_table)
+
+
 
         db.commit()
         db.close()
@@ -214,6 +218,72 @@ def setProgress(ID, progress):
     db.commit()
     db.close()
 
+#CALENDER STUFF===================================================================================================================
+def insertCalender(ID, calenderID, title, starting, ending):
+    db = sqlite3.connect(DIR)
+    c = db.cursor()
+
+    exist = c.execute('SELECT EXISTS(SELECT 1 from calender WHERE userID = {} and calenderID = "{}");'.format(ID, calenderID))
+
+    if exist == 1:
+        updateCalender (ID, calenderID, title, starting, ending)
+    else:
+        addCalender (ID, calenderID, title, starting, ending)
+
+    db.commit()
+    db.close() 
+
+def addCalender (ID, calenderID, title, starting, ending):
+    db = sqlite3.connect(DIR)
+    c = db.cursor()
+
+    c.execute('INSERT INTO calender VALUES (?,?,?,?,?)',[ID, calenderID, title, starting, ending])
+    db.commit()
+    db.close() 
+
+def updateCalender (ID, calenderID, title, starting, ending):
+    db = sqlite3.connect(DIR)
+    c = db.cursor()
+    command = 'UPDATE calender SET title = {}, starting = {}, ending = {} WHERE userID = {} AND calenderID = {};'
+    c.execute(command.format(title, starting, ending, ID, calenderID))
+
+    c.execute(command)
+    db.commit()
+    db.close()
+
+def getCalender (ID, calenderID):
+    ret = {}
+    ret['id'] = calenderID
+
+    db = sqlite3.connect(DIR)
+    c = db.cursor()    
+    ret['title'] = c.execute('SELECT title FROM calender WHERE userID ={} AND calenderID = {};'.format(ID, calenderID)).fetchone()[0]
+    ret['start'] = c.execute('SELECT starting FROM calender WHERE userID ={} AND calenderID = {};'.format(ID, calenderID)).fetchone()[0]
+    ret['end'] = c.execute('SELECT ending FROM calender WHERE userID ={} AND calenderID = {};'.format(ID, calenderID)).fetchone()[0]
+    db.close()
+    return ret     
+
+def getAllCalender (ID):
+    ret = []
+    db = sqlite3.connect(DIR) #open if f exists, otherwise create
+    c = db.cursor()    
+    maxID = c.execute('SELECT max(updateID) FROM update_table WHERE userID = {};'.format(ID)).fetchone()[0]
+
+    if maxID == None:
+        print "No table exist"
+        return None
+    else:
+        for i in range(maxID+1):
+            ret.append(getCalender(ID,i))
+    db.close()
+    return ret    
+
+
+
+
+#==================================================================================================================================
+
+
 #Forum Stuff========================================================================================================================
 #(catID INTEGER, catName TEXT, catDesc TEXT);
 def addCategories():
@@ -306,6 +376,23 @@ def addToPost (ID, catID, topicID, postID, body):
     db.close() 
 
 
+def getAllCat():
+    db = sqlite3.connect(DIR)
+    c = db.cursor()
+    allCat = c.execute('SELECT * FROM categories;').fetchall()
+    db.close()
+
+    ret = []
+    for each in allCat:
+        d = {}
+        d['id'] = each[0]
+        d['name'] = each[1]
+        d['desc'] = each[2]
+        ret.append(d)
+
+    return ret
+
+
 
 def getAllTopicInCat(catID):
     db = sqlite3.connect(DIR)
@@ -321,7 +408,7 @@ def getAllTopicInCat(catID):
         d['userID'] = each[0]
         ret.append(d)
 
-    print ret
+    return ret
 
 
 def getAllPostInTopic(catID, topicID):
@@ -344,6 +431,11 @@ def getAllPostInTopic(catID, topicID):
 
 if __name__ == '__main__':  
     tableCreation()
+
+
+    #addCalender (0, 0, 'Title', '2018-12-06', '2018-12-06')
+    #print getCalender (0, 0)
+
 
     #getAllPostInTopic(0, 0)
 
