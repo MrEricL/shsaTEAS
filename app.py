@@ -16,13 +16,14 @@ user = ""
 
 @app.route('/')
 def index():
-	tableCreation()
-        # If logged in:
-	if session.has_key('user'):
-		return redirect( url_for('home') )
-        # If not logged in yet:
-	else:
-		return render_template("login.html")
+    tableCreation()
+
+
+    if session.has_key('user') and user != "":
+        return redirect( url_for('home') )
+    # If not logged in yet:
+    else:
+        return render_template("login.html")
 
 # ------------------- Login -----------------------------------
 @app.route('/login', methods = ['POST','GET'])
