@@ -1,89 +1,20 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title> shsaTEAS </title>
+{% extends "base.html" %}
 
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
-
-    <link href="../static/login.css" rel="stylesheet">
-
-    <h1 style="background-color:white;text-align:center"> shsaTEAS </h1>
-
-    <!-- Navigation bar bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-  </head>
-
-  <!-- Navigation bar -->
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">WebSiteName</a>
-      </div>
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Home</a></li>
-        <li><a href="#">Page 1</a></li>
-        <li><a href="#">Page 2</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-    </div>
-  </nav>
-
-
-  <body style="background-color:green">
-    <center>
-
-    {% set messages = get_flashed_messages() %}
-    {% for message in messages %}
-    <div class="alert alert-danger" role="alert">
-      {{ message }}
-    </div>
-    {% endfor %}
-
+    {% block content %}
     <br>
     <br>
     <div class="container">
       <h4> Hello {{ name }}! </h4>
       <form class="form-register" action="/calendar">
-       <button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color:lightgreen;color:black">Calendar</button>
+	<button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color:lightgreen;color:black">Calendar</button>
       </form>
     </div> 
     <br>
     <br>
-     <div class="container">
+    <div class="container">
       <form class="form-register" method="POST" action="/logout">
-       <button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color:lightgreen;color:black">Logout</button>
+	<button class="btn btn-lg btn-primary btn-block" type="submit" style="background-color:lightgreen;color:black">Logout</button>
       </form>
-
+      
     </div>
-
-
-      <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery.min.js"><\/script>')</script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- Just to make our placeholder images work. Don't actually copy the next line! -->
-    <script src="../../assets/js/vendor/holder.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-    </center>
-  </body>
-<<<<<<< HEAD
-  
-=======
-
->>>>>>> bf7aaedf05f9add45a64931b68ef5c8a7b3e9cee
-</html>
+    {% endblock content %}
