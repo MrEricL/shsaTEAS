@@ -15,7 +15,7 @@ GOOD = 1
 user = ""
 
 @app.route('/')
-def index():
+def root():
     tableCreation()
 
 
@@ -48,6 +48,7 @@ def login():
     if result == BAD_PASS:
         flash('Incorrect password. Please try again.')
         return redirect( url_for('root') )
+
     return redirect( url_for('root') )
 
 # ------------------- Register ---------------------------------
@@ -76,10 +77,11 @@ def register():
 # ------------------- Logout ---------------------------------
 @app.route('/logout', methods = ['POST','GET'])
 def logout():
-    try:
-        ID = getUserID(session['user'])
-    except:
-        return redirect( url_for('root'))
+
+    print "Session LogOut================"
+    print session
+    print "=============================="
+
     session.pop('user')
     flash('You have been logged out successfully')
     return redirect(url_for('root'))
@@ -87,8 +89,6 @@ def logout():
 # ------------------- Calendar ---------------------------------
 @app.route('/calendar')
 def calendar():
-    if not session.has_key('user') or user == "":
-        return render_template("login.html")
 
     return render_template("calendar.html")
 
@@ -96,8 +96,6 @@ def calendar():
 @app.route('/home', methods = ['POST','GET'])
 def home():
 
-    if not session.has_key('user') or user == "":
-        return render_template("login.html")
 
     ID = getUserID(session['user'])
     #INFO ================================
@@ -115,12 +113,24 @@ def home():
 
 @app.route('/events', methods = ['POST','GET'])
 def events():
-    if not session.has_key('user') or user == "":
-        return render_template("login.html")
+
+
     ID = getUserID(session['user'])
     event = table_builder(get_events()).decode('utf-8')
 
     return render_template('events.html', event = event)
-    
+
+
+@app.route('/forum', methods = ['POST','GET'])
+def forum():
+
+
+    ID = getUserID(session['user'])
+    event = table_builder(get_events()).decode('utf-8')
+
+    return render_template('events.html', event = event)
+
+
+
 if __name__=='__main__':
 	app.run(debug=True)
