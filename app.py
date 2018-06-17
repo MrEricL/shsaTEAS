@@ -144,7 +144,11 @@ def home():
     print 'usertype',getUserType(ID)
 
     #=====================================
-    return render_template('home.html', name=name, left = left, prettydate = prettydate)
+    if getConfig(ID) != 1:
+        return render_template('config.html')
+
+    else:
+        return render_template('home.html', name=name, left = left, prettydate = prettydate)
 
 
 @app.route('/config', methods = ['POST','GET'])
@@ -157,6 +161,8 @@ def config():
     setConfig(ID)
 
     return redirect( url_for('home'))
+
+
 
 @app.route('/events', methods = ['POST','GET'])
 def events():
