@@ -201,6 +201,7 @@ def forum():
         return render_template('post.html', title = title , catint = int(request.args['category']), topicint = request.args['topic'], postint = postID, posts = posts)
 
     else:
+        cat = categoryTableBuilder(rawCategories)
         return render_template('forum.html', cat = cat)
 
 
@@ -247,7 +248,7 @@ def addpost():
     #addTopic(ID, cat, title, body)
     addToPost (ID, cat, top, post, body)
 
-    return redirect( url_for('forum', category = cat))
+    return redirect( url_for('forum', category = cat, topic = top))
 
 
 
