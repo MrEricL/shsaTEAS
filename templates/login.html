@@ -13,19 +13,29 @@
 
     <link href="../static/login.css" rel="stylesheet">
 
-    <h1 style="background-color:white;text-align:center"> shsaTEAS </h1>
+    <h1 style="background-color:#FFBF69;text-align:center"> shsaTEAS </h1>
     
   </head>
   
-  <body style="background-color:green">
-    <center>
+  <body style="background-color:#FFBF69">
 
-    {% set messages = get_flashed_messages() %}
-    {% for message in messages %}
-    <div class="alert alert-danger" role="alert">
-      {{ message }}
+      <div class="row justify-content-md-center">
+    <div class="col col-lg-2"> </div>
+
+    <div class="col col-lg-8">
+        {% set messages = get_flashed_messages() %}
+        {% for message in messages %}
+        <div class="alert alert-danger" role="alert">
+          {{ message }}
+        </div>
+
+        {% endfor %}
     </div>
-    {% endfor %}
+
+    <div class="col col-lg-2"> </div>
+    </div>
+
+
     
     <!-- Sign in ------------------------------------------------------>
     <div class="container">

@@ -1,8 +1,11 @@
+
+
+
 <!DOCTYPE html>
 <html>
   <head>
     {% block head %}
-    <title> {% block title %} shsaTEAS {% endblock title %}</title>
+    <title> {{name}} </title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -48,6 +51,7 @@
       <li class="nav-item">
         <a class="nav-link" href="/forum">Forum</a>
       </li>
+
       <li class="nav-item">
         <a class="nav-link" href="/logout">Logout</a>
       </li>
@@ -69,6 +73,52 @@
     {% block content %}
       
     {% endblock content %}
+
+    <!-- THE IMPORTANT STUFF -------------------------------------------------->
+
+    	<br><br><br>
+		  <div class="row justify-content-md-center">
+		<div class="col col-lg-1"> </div>
+
+		<div class="col col-lg-10">
+
+
+			<h3>{{name}} </h3>
+
+			{% if  topic == None %}
+				<br><br>
+				Looks like there's nothing here! Create a new post!
+
+		    {% else %}
+
+		    	{{topictable|safe}}
+
+		    {% endif %}
+
+
+		    <br><br>
+      <div >
+		    <form action="/addtopic" id = "topicform" method="POST">
+		    <input type="hidden" name="category" value="{{catint}}">
+			Title: <br>
+			<input type="text" name="title" required size="51" ><br>
+			Body: <br>
+			<textarea rows="4" cols="50" name="body" form="topicform" required></textarea>
+			<br>
+			<input type="submit" value="Submit"><br><br><br>
+			</form>
+      </div>
+		</div>
+
+		<div class="col col-lg-1"> </div>
+		</div>
+
+
+
+
+
+   <!-------------------------------------------------------------->
+
     <!-- Bootstrap core JavaScript
 	 ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

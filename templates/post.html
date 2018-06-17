@@ -1,8 +1,9 @@
+
 <!DOCTYPE html>
 <html>
   <head>
     {% block head %}
-    <title> {% block title %} shsaTEAS {% endblock title %}</title>
+    <title> {{title}} </title>
 
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -48,6 +49,7 @@
       <li class="nav-item">
         <a class="nav-link" href="/forum">Forum</a>
       </li>
+
       <li class="nav-item">
         <a class="nav-link" href="/logout">Logout</a>
       </li>
@@ -69,6 +71,32 @@
     {% block content %}
       
     {% endblock content %}
+
+    <!-- THE IMPORTANT STUFF -------------------------------------------------->
+
+
+
+	<br>
+	 <h3> {{title}} </h3> <br><br>
+
+	{{posts|safe}}<br>
+
+	<form action="/addpost" id = "topicform" method="POST">
+    <input type="hidden" name="category" value="{{catint}}">
+     <input type="hidden" name="topic" value="{{topicint}}">
+      <input type="hidden" name="post" value="{{postint}}">
+
+    <br>
+	Reply: <br><br>
+	<textarea rows="4" cols="145" name="body" form="topicform" required></textarea>
+	<br><br>
+	<input type="submit" value="Submit"> <br><br>
+	</form><br>
+
+
+
+   <!-------------------------------------------------------------->
+
     <!-- Bootstrap core JavaScript
 	 ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

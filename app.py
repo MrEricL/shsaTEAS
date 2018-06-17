@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, url_for, flash, redirect
 import sqlite3
 import os
+from datetime import date
 
 from utils.api import *
 from utils.db_builder import *
@@ -102,6 +103,24 @@ def calendar():
 #============================================================================
 @app.route('/home', methods = ['POST','GET'])
 def home():
+
+    now = datetime.datetime.now()
+    year = now.year
+    month = now.month
+    monthname = now.strftime("%B")
+    day = now.day
+
+    prettydate = "{} {}, {}".format(monthname, day, year)
+
+    a = date(year,month,day)
+    b = date(2018,10,22)
+
+    print 'days left-----------'
+    print (b-a).days
+    left = (b-a).days / 365.0
+    left *= 100
+    print '--------------------'
+
     try:
         ID = getUserID(session['user'])
     except:
@@ -120,7 +139,7 @@ def home():
     print 'usertype',getUserType(ID)
 
     #=====================================
-    return render_template('home.html', name=name)
+    return render_template('home.html', name=name, left = left, prettydate = prettydate)
 
 @app.route('/events', methods = ['POST','GET'])
 def events():
@@ -155,6 +174,8 @@ def forum():
 
     rawCategories = getAllCat()
 
+
+
     #Browsing category
     if len(request.args) == 0:
         cat = categoryTableBuilder(rawCategories)
@@ -163,27 +184,65 @@ def forum():
     #Browsing topic in category
     elif len(request.args) == 1:
 
+        '''
+        print "TESTING TOPICS=============="
+        print getAllTopicInCat(int(request.args['category']))
+        print "============================"
+        '''
+
+
         topic = getAllTopicInCat(request.args['category'])
+        topictable = topicTableBuilder(topic, request.args['category'])
+
         categoryname = rawCategories[int(request.args['category'])]['name']
+
 
         if topic == []:
             return render_template('topic.html', topic = None, name = categoryname, catint = int(request.args['category']))
 
         else:
-            return 'test'
+            return render_template('topic.html', topic = True, name = categoryname, catint = int(request.args['category']), topictable = topictable)
+        
+    elif len(request.args) == 2:
+
+        title = getTopicTitle(request.args['category'], request.args['topic'])
+        rawpost = getAllPostInTopic(request.args['category'], request.args['topic'])
+        postID = rawpost[0]['postID']
+
+        posts = postTableBuilder(rawpost)
+
+        print "********************************"
+        print posts
+        #print postID
+        print "********************************"
+
+        return render_template('post.html', title = title , catint = int(request.args['category']), topicint = request.args['topic'], postint = postID, posts = posts)
+
     else:
+        cat = categoryTableBuilder(rawCategories)
         return render_template('forum.html', cat = cat)
+
+
+#   NOTE TO WHOEVER IS READING: This is super repetitive and useless but
+#   it's too much work to delete. :(
 
 @app.route('/forumconfig', methods = ['POST','GET'])
 def forumconfig():
     if len(request.args) == 1:
-        print "test======================"
+        print "Forum Configuration ======================"
         print request.args['category']
-        print "=========================="
+        print "=========================================="
         return redirect( url_for('forum', category = request.args['category']))
+
+    elif len(request.args) == 2:
+
+        print request.args['topic']
+
+        return redirect( url_for('forum', category = request.args['category'], topic = request.args['topic']))
+
     else:
-        pass
-    return 'testing'
+        
+        return 'testing'
 
 @app.route('/addtopic', methods = ['POST','GET'])
 def addtopic():
@@ -194,12 +253,20 @@ def addtopic():
 
     addTopic(ID, cat, title, body)
 
-
-    print "TESTING TOPICS=============="
-    print getAllTopicInCat(catID)
-    print "============================"
-
     return redirect( url_for('forum', category = cat))
+
+@app.route('/addpost', methods = ['POST','GET'])
+def addpost():
+    ID = getUserID(session['user'])
+    body = request.form['body']
+    cat = request.form['category']
+    top = request.form['topic']
+    post = request.form['post']
+
+    #addTopic(ID, cat, title, body)
+    addToPost (ID, cat, top, post, body)
+
+    return redirect( url_for('forum', category = cat, topic = top))
 
 if __name__=='__main__':
 	app.run(debug=True)

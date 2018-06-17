@@ -24,7 +24,7 @@ def get_events():
 	return data
 	
 def table_builder(data):
-	table = '<table> <tr> <th> Name </th> <th> Description </th> </tr>'
+	table = '<table class="table table-hover"> <tr> <th> Name </th> <th> Description </th> </tr>'
 	for i in range(len(data['events'])):
 		name = str(data['events'][i]['name']['text'])
 		desc =  data['events'][i]['description']['text'][:350].encode('utf-8')
