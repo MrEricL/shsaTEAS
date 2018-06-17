@@ -120,11 +120,11 @@ def home():
     a = date(year,month,day)
     b = date(2018,10,22)
 
-    print 'days left-----------'
-    print (b-a).days
+    #print 'days left-----------'
+    #print (b-a).days
     left = (b-a).days / 365.0
     left *= 100
-    print '--------------------'
+    #print '--------------------'
 
     try:
         ID = getUserID(session['user'])
@@ -145,6 +145,18 @@ def home():
 
     #=====================================
     return render_template('home.html', name=name, left = left, prettydate = prettydate)
+
+
+@app.route('/config', methods = ['POST','GET'])
+def config():
+    try:
+        ID = getUserID(session['user'])
+    except:
+        return redirect( url_for('root'))
+
+    setConfig(ID)
+
+    return redirect( url_for('home'))
 
 @app.route('/events', methods = ['POST','GET'])
 def events():
