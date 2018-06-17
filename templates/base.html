@@ -29,7 +29,7 @@
 
   <!-- Navigation bar -->
   {% block navbar %}
-  <nav class="navbar navbar-expand-lg navbar-light bg-light" style="border-radius:0 !important; background-color: white !important">
+  <nav class="navbar navbar-expand-lg navbar-light navbar-fixed-top bg-light" style="border-radius:0 !important; background-color: white !important">
   <a class="navbar-brand">shsaTEAS</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -60,7 +60,7 @@
 {% endblock navbar %}
 
   {% block body %}
-  <body style="background-color: #006600">
+  <body style="background-color: #001a4d">
     <center>
     {% set messages = get_flashed_messages() %}
     {% for message in messages %}
