@@ -130,7 +130,7 @@ def getUserID(username):
 def getUserName(ID):
     db = sqlite3.connect(DIR) #open if f exists, otherwise create
     c = db.cursor()         #facilitates db ops
-    command = 'SELECT userID FROM users WHERE userID ="' + str(ID) + '";'
+    command = 'SELECT username FROM users WHERE userID ="' + str(ID) + '";'
     info = c.execute(command)
 
     retVal = None
@@ -410,6 +410,16 @@ def getAllTopicInCat(catID):
 
     return ret
 
+def getTopicTitle(catID, topicID):
+    db = sqlite3.connect(DIR)
+    c = db.cursor()
+    title = c.execute('SELECT title FROM topics WHERE catID = {} AND topicID = {};'.format(catID, topicID)).fetchone()[0]
+    db.close()
+
+
+
+    return title
+
 
 def getAllPostInTopic(catID, topicID):
     db = sqlite3.connect(DIR)
@@ -419,9 +429,11 @@ def getAllPostInTopic(catID, topicID):
 
     ret = []
     for each in allPost:
+
         d = {}
         d['body'] = each[5]
         d['userID'] = each[0]
+        d['postID'] = each[3]
         ret.append(d)
 
     return ret
@@ -433,13 +445,13 @@ if __name__ == '__main__':
     tableCreation()
 
 
-    print getAllTopicInCat(0)
+    #print getAllTopicInCat(1)
 
     #addCalender (0, 0, 'Title', '2018-12-06', '2018-12-06')
     #print getCalender (0, 0)
 
 
-    #getAllPostInTopic(0, 0)
+    #getAllPostInTopic(1, 0)
 
     #getAllTopicInCat(0)
     #addTopic(0, 0, 'Test Title', 'Body')
