@@ -1,11 +1,17 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title> Forum</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-	{{cat | safe}}
+{% block title %} Forum {% endblock title %}
 
-</body>
-</html>
+{% block content %}
+
+<style>
+  a{
+  color:white;
+  }
+</style>
+
+<div style="color:white !important">
+{{ cat | safe }}
+</div>
+
+{% endblock content %}
