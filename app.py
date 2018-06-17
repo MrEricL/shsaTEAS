@@ -184,7 +184,6 @@ def forum():
     rawCategories = getAllCat()
 
 
-
     #Browsing category
     if len(request.args) == 0:
         cat = categoryTableBuilder(rawCategories)
