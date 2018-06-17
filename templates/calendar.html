@@ -187,7 +187,7 @@
           url: 'http://google.com/',
           start: '2018-03-28'
       },
--->
+
 
       {% for event in events %}
       {
@@ -297,11 +297,10 @@ $('#calendar').fullCalendar('refetchEvents');
     <p>	   
       <strong>Draggable Events</strong>	   
     </p>	    
-    <div class='fc-event'>My Event 1</div>
-    <div class='fc-event'>My Event 2</div>
-    <div class='fc-event'>My Event 3</div>
-    <div id='calendar'></div>	  
-  </div>	   
-  </div>	
+    <div class='fc-event'>{{a}}</div>
+    <div class='fc-event'>{{b}}</div>
+    <div class='fc-event'>{{c}}</div>
+  </div>
+    <div id='calendar'></div>	  	
 </body>
 </html>

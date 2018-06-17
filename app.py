@@ -170,8 +170,10 @@ def events():
         ID = getUserID(session['user'])
     except:
         return redirect( url_for('root'))
-    event = table_builder(get_events()).decode('utf-8')
-    return render_template('events.html', event = event)
+    events = table_builder(get_events()).decode('utf-8')
+
+    return render_template('events.html', events = events)
+
 
 @app.route('/calendar', methods = ['POST','GET'])
 def calendar():
@@ -179,9 +181,12 @@ def calendar():
         ID = getUserID(session['user'])
     except:
         return redirect( url_for('root'))
+    
     events = getData()
-    print "Events: ", events
-    return render_template('calendar.html', events = events)
+    e = get_name_events()
+
+
+    return render_template('calendar.html', events =events, a = e[1], b = e[2], c = e[3], d = e[4] )
 
 @app.route('/calenderdb', methods = ['POST','GET'])
 def calenderdb():
@@ -189,6 +194,9 @@ def calenderdb():
         ID = getUserID(session['user'])
     except:
         return redirect( url_for('root'))
+
+
+
     print request.args
 
 # 0 = View All Category
