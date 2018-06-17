@@ -92,19 +92,19 @@ def logout():
     return redirect(url_for('root'))
 
 # ------------------- Calendar ---------------------------------
-@app.route('/calendar')
-def calendar():
-    try:
-        ID = getUserID(session['user'])
-    except:
-        return redirect( url_for('root'))
-
-
-    eventl = get_name_events(get_events())
-
-
-    return render_template("calendar.html", a = eventl[4], b =  eventl[1], c = eventl[2], d= eventl[3])
-
+#@app.route('/calendar')
+#def calendar():
+#    try:
+#        ID = getUserID(session['user'])
+#    except:
+#        return redirect( url_for('root'))
+#
+#
+#    eventl = get_name_events(get_events())
+#
+#
+#    return render_template("calendar.html", a = eventl[4], b =  eventl[1], c = eventl[2], d= eventl[3])
+#
 #============================================================================
 @app.route('/home', methods = ['POST','GET'])
 def home():
@@ -160,7 +160,15 @@ def config():
 
 @app.route('/events', methods = ['POST','GET'])
 def events():
+    try:
+        ID = getUserID(session['user'])
+    except:
+        return redirect( url_for('root'))
+    event = table_builder(get_events()).decode('utf-8')
+    return render_template('events.html', event = event)
 
+@app.route('/calendar', methods = ['POST','GET'])
+def calendar():
     try:
         ID = getUserID(session['user'])
     except:
@@ -169,16 +177,13 @@ def events():
     print "Events: ", events
     return render_template('calendar.html', events = events)
 
-
 @app.route('/calenderdb', methods = ['POST','GET'])
 def calenderdb():
-
     try:
         ID = getUserID(session['user'])
     except:
         return redirect( url_for('root'))
     print request.args
-
 
 # 0 = View All Category
 # 1 = View All Topic in Category
