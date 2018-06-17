@@ -170,7 +170,12 @@ def events():
         ID = getUserID(session['user'])
     except:
         return redirect( url_for('root'))
+
     events = table_builder(get_events()).decode('utf-8')
+
+    print "==================================="
+    print events
+    print "==================================="
 
     return render_template('events.html', events = events)
 
