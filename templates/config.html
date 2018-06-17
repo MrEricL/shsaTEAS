@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %} Forum {% endblock title %}
+
+{% block content %}
+
+<style>
+  a{
+  color:#004777;
+  }
+</style>
+
+<div style="color:#1E1E1E !important">
+	<br><br>
+
+<div class="row justify-content-md-center">
+<div class="col col-lg-3"> </div>
+
+<div class="col col-lg-6" style="text-align:left">
+
+	<form action="/config">
+
+		1. When is your child graduating from middle school?<br> <br>
+		<input type="month" class="form-control" name = "month"><br>
+
+		2. Did your child struggle in school? <br> <br>
+			<select class="form-control" name="struggle">
+		    <option>Yes</option>
+		    <option>No</option>
+		    <option>I Don't Know</option>
+			</select> <br>
+
+		3. Has your child completed any kind of test prep in the past? <br> <br>
+			<select class="form-control" name="testprep">
+		    <option>SHSAT formal course</option>
+		    <option>SHSAT class provided at school</option>
+		    <option>SHSAT online practice on their own</option>
+		    <option>SHSAT prep book on their own</option>
+		    <option>SHSAT afterschool program</option>
+		    <option>No expirence with the SHSAT</option>
+		    <option>I Don't Know</option>
+			</select> <br>
+
+		4. Has your child taken a practice SHSAT before? <br><br>
+		<select class="form-control" name="prevprac">
+		    <option>Yes</option>
+		    <option>No</option>
+		    <option>I Don't Know</option>
+			</select> <br>
+
+		5. Please rate your child's math skill. <br><br>
+		<select class="form-control" name="math">
+		    <option>Above Average</option>
+		    <option>Average</option>
+		    <option>Below Average</option>
+		    <option>I Don't Know</option>
+			</select> <br>
+
+		6. Please rate your child's reading comprehension skill. <br><br>
+		<select class="form-control" name="ela">
+		    <option>Above Average</option>
+		    <option>Average</option>
+		    <option>Below Average</option>
+		    <option>I Don't Know</option>
+			</select> <br>
+
+		7. Preferred Method of Prep:<br><br>
+		<select class="form-control" name="pref">
+		    <option>Online Course</option>
+		    <option>In Class Course</option>
+		    <option>Independent Study</option>
+		    <option>I Don't Know</option>
+			</select> <br>
+		8. Is your child enrolled in a supplemental prep course?<br><br>
+		<select class="form-control" name="supp">
+		    <option>Yes, my child attends weekly</option>
+		    <option>Yes, my child attends daily</option>
+		    <option>No</option>
+		    <option>I Don't Know</option>
+			</select> <br>
+		<input type="submit" value="Submit">
+	</form>
+
+
+</div>
+
+<div class="col col-lg-3"> </div>
+</div>
+
+</div>
+
+{% endblock content %}
+
+
