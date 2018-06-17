@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> {{name}} </title>
+</head>
+<style type="text/css">
+
+
+
+</style>
+<body>
+	<p>
+
+	{{name}} 
+
+	{% if  topic == None %}
+		<br><br>
+		Looks like there's nothing here! Create a new post!
+
+    {% else %}
+
+    	{{topictable|safe}}
+
+    {% endif %}
+
+
+    <form action="/addtopic" id = "topicform" method="POST">
+    <input type="hidden" name="category" value="{{catint}}">
+	Title: <input type="text" name="title" required><br>
+	Body: <br>
+	<textarea rows="4" cols="50" name="body" form="topicform" required></textarea>
+	<br>
+	<input type="submit" value="Submit">
+	</form>
+
+	</p>
+
+</body>
+</html>

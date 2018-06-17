@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> {{title}} </title>
+</head>
+<body>
+
+	{{title}}
+	{{posts|safe}}
+
+
+	<form action="/addpost" id = "topicform" method="POST">
+    <input type="hidden" name="category" value="{{catint}}">
+     <input type="hidden" name="topic" value="{{topicint}}">
+      <input type="hidden" name="post" value="{{postint}}">
+
+    <br><br>
+	Body: <br>
+	<textarea rows="4" cols="50" name="body" form="topicform" required></textarea>
+	<br>
+	<input type="submit" value="Submit">
+	</form>
+
+</body>
+</html>
