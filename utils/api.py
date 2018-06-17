@@ -43,8 +43,20 @@ def table_builder(data):
 		name = str(data['events'][i]['name']['text'])
 		desc =  data['events'][i]['description']['text'][:350].encode('utf-8')
 
-		if desc[-1] == "." or desc[-1] == "?" or desc[-1] == "!":
+
+		print "=================="
+		print desc[-1]
+		print desc[-2]
+		print desc[-3]
+		print "=================="
+
+		if desc[-1] == "." or desc[-1] == "!":
 			pass
+
+		elif desc[-3] == ".":
+			desc=desc[:-3]
+			desc+="..."
+
 		else:
 			desc+="..."
 
