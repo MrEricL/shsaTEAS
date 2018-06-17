@@ -406,6 +406,7 @@ def getAllTopicInCat(catID):
         d['title'] = each[4]
         d['topicID'] = each[2]
         d['userID'] = each[0]
+        d['date'] = each[3]
         ret.append(d)
 
     return ret
@@ -434,6 +435,7 @@ def getAllPostInTopic(catID, topicID):
         d['body'] = each[5]
         d['userID'] = each[0]
         d['postID'] = each[3]
+        d['date'] = each[4]
         ret.append(d)
 
     return ret

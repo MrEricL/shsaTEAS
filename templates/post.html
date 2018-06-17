@@ -79,19 +79,35 @@
 	<br>
 	 <h3> {{title}} </h3> <br><br>
 
-	{{posts|safe}}<br>
+   <div class="row justify-content-md-center">
+<div class="col col-lg-1"> </div>
 
-	<form action="/addpost" id = "topicform" method="POST">
+<div class="col col-lg-10">
+
+
+  {{posts|safe}}<br>
+
+  <form action="/addpost" id = "topicform" method="POST">
     <input type="hidden" name="category" value="{{catint}}">
      <input type="hidden" name="topic" value="{{topicint}}">
       <input type="hidden" name="post" value="{{postint}}">
 
     <br>
-	Reply: <br><br>
-	<textarea rows="4" cols="145" name="body" form="topicform" required></textarea>
-	<br><br>
-	<input type="submit" value="Submit"> <br><br>
-	</form><br>
+  Reply: <br><br>
+  <textarea rows="4" cols="100" name="body" form="topicform" required></textarea>
+  <br><br>
+  <input type="submit" value="Submit"> <br><br>
+  </form><br>
+
+
+
+
+</div>
+
+<div class="col col-lg-1"> </div>
+</div>
+
+
 
 
 
