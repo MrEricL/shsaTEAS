@@ -23,19 +23,8 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <style>
       .h1,h2,h3,h4,h5,h6 {
-      color:white;
+      color: black;
       }
-      body {
-    		color: white;
-		}
-
-	th, td { 
-	    padding: 20px;
-	}
-
-	.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
-	  background-color: red;
-	}
     </style>
     
     {% endblock head %}
@@ -43,12 +32,12 @@
 
   <!-- Navigation bar -->
   {% block navbar %}
-  <nav class="navbar navbar-expand-lg navbar-light navbar-fixed-top bg-light" style="border-radius:0 !important; background-color: white !important">
+  <nav class="navbar navbar-expand-lg navbar-light navbar-fixed-top bg-light" style="border-radius:0 !important; background-color: #FF9F1C !important">
   <a class="navbar-brand">shsaTEAS</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown" style="color:white">
+  <div class="collapse navbar-collapse" id="navbarNavDropdown" style="color: #FF9F1C">
     <ul class="navbar-nav">
       <li class="nav-item">
         <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
@@ -62,9 +51,7 @@
       <li class="nav-item">
         <a class="nav-link" href="/forum">Forum</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/profile">Profile</a>
-      </li>
+
       <li class="nav-item">
         <a class="nav-link" href="/logout">Logout</a>
       </li>
@@ -74,7 +61,7 @@
 {% endblock navbar %}
 
   {% block body %}
-  <body style="background-color: #001a4d">
+  <body style="background-color: #FFFFFF">
     <center>
     {% set messages = get_flashed_messages() %}
     {% for message in messages %}
@@ -89,36 +76,45 @@
 
     <!-- THE IMPORTANT STUFF -------------------------------------------------->
 
+    	<br><br><br>
+		  <div class="row justify-content-md-center">
+		<div class="col col-lg-1"> </div>
+
+		<div class="col col-lg-10">
 
 
-	<p>
+			<h3>{{name}} </h3>
 
-	{{name}} 
+			{% if  topic == None %}
+				<br><br>
+				Looks like there's nothing here! Create a new post!
 
-	{% if  topic == None %}
-		<br><br>
-		Looks like there's nothing here! Create a new post!
+		    {% else %}
 
-    {% else %}
+		    	{{topictable|safe}}
 
-    	{{topictable|safe}}
-
-    {% endif %}
+		    {% endif %}
 
 
-    <br><br>
+		    <br><br>
+      <div >
+		    <form action="/addtopic" id = "topicform" method="POST">
+		    <input type="hidden" name="category" value="{{catint}}">
+			Title: <br>
+			<input type="text" name="title" required size="51" ><br>
+			Body: <br>
+			<textarea rows="4" cols="50" name="body" form="topicform" required></textarea>
+			<br>
+			<input type="submit" value="Submit"><br><br><br>
+			</form>
+      </div>
+		</div>
 
-    <form action="/addtopic" id = "topicform" method="POST">
-    <input type="hidden" name="category" value="{{catint}}">
-	Title: <br>
-	<input type="text" name="title" required size="51" ><br>
-	Body: <br>
-	<textarea rows="4" cols="50" name="body" form="topicform" required></textarea>
-	<br>
-	<input type="submit" value="Submit">
-	</form>
+		<div class="col col-lg-1"> </div>
+		</div>
 
-	</p>
+
+
 
 
    <!-------------------------------------------------------------->

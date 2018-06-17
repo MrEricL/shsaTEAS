@@ -2,15 +2,52 @@
 
 {% block content %}
     
+      <div class="row justify-content-md-center">
+    <div class="col col-lg-1"> </div>
+
+    <div class="col col-lg-10">
+
 <div class="jumbotron jumbotron-fluid" style="color: white;background-color:white">
-  <h2 style="color:black">Animated Progress Bar</h2>
-  <p style="color:black">The active class animates the progress bar:</p> 
+  <h2 style="color:black">SHSAT Progress Bar</h2>
+  <p style="color:black">Time until the big test on October 22, 2018!</p> 
   <div class="progress" style="height:50px;border-radius:0;color:black">
-    <div class="progress-bar progress-bar-striped active bg-success" role="progressbar" aria-valuenow="40" aria-valuemin="June 16th 2018" aria-valuemax="100" style="width:40%">
-      Jun 10th
+    <div class="progress-bar progress-bar-striped active bg-success" role="progressbar" aria-valuenow="50" aria-valuemin="June 16th 2018" aria-valuemax="100" style="width:{{left}}%">
+     {{prettydate}}
     </div>
   </div>
 </div>
+
+    </div>
+
+    <div class="col col-lg-1"> </div>
+    </div>
+
+
+
+      <div class="row justify-content-md-center">
+    <div class="col col-lg-1"> </div>
+
+    <div class="col col-lg-10" style="text-align: left">
+
+      <p style = "font-size: 17px">
+      Welcome to SHSATeas! We're here to help and guide you through your SHSAT journey! On the home page, you will notice a big progress bar to keep you reminded of the test date! <br>
+
+      Feel free to visit events for possible events in your location for SHSAT prep. Use your calender to plan accordingly!
+
+      Also visit the forums for other students and parents to assist you!
+      
+      </p>
+
+
+    </div>
+
+    <div class="col col-lg-1"> </div>
+    </div>
+
+
+
+
+
 <br>
 <div class="container">
   <h4 style="color:white"> Hello {{ name }}! </h4>

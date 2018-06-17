@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, session, url_for, flash, redirect
 import sqlite3
 import os
+from datetime import date
 
 from utils.api import *
 from utils.db_builder import *
@@ -102,6 +103,24 @@ def calendar():
 #============================================================================
 @app.route('/home', methods = ['POST','GET'])
 def home():
+
+    now = datetime.datetime.now()
+    year = now.year
+    month = now.month
+    monthname = now.strftime("%B")
+    day = now.day
+
+    prettydate = "{} {}, {}".format(monthname, day, year)
+
+    a = date(year,month,day)
+    b = date(2018,10,22)
+
+    print 'days left-----------'
+    print (b-a).days
+    left = (b-a).days / 365.0
+    left *= 100
+    print '--------------------'
+
     try:
         ID = getUserID(session['user'])
     except:
@@ -120,7 +139,7 @@ def home():
     print 'usertype',getUserType(ID)
 
     #=====================================
-    return render_template('home.html', name=name)
+    return render_template('home.html', name=name, left = left, prettydate = prettydate)
 
 @app.route('/events', methods = ['POST','GET'])
 def events():
