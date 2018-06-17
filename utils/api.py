@@ -1,4 +1,3 @@
-
 import json, os, requests
 from requests.auth import HTTPBasicAuth
 from pprint import pprint
@@ -12,7 +11,6 @@ def get_apikey():
     return av_key
 
 KEY = get_apikey()
-
 
 def get_events():
 	link = 'https://www.eventbriteapi.com/v3/events/search/?location.address={}&q={}&token={}'
@@ -44,6 +42,10 @@ def table_builder(data):
 	table += '</table>'
 	return table
 
-
-
 #print table_builder(get_events())
+
+def getData():
+    print "DATA:\n", get_events()
+    return True
+
+getData()
