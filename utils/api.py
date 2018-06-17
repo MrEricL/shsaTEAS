@@ -45,7 +45,22 @@ def table_builder(data):
 #print table_builder(get_events())
 
 def getData():
-    print "DATA:\n", get_events()
-    return True
+    data = get_events()
+    events = []
+    list = []
+    print "GET DATA:\n"
+    for i in range(len(data['events'])):
+	name = str(data['events'][i]['name']['text'])
+        # print "   Name:", name
+	desc =  data['events'][i]['description']['text'][:350].encode('utf-8')
+        # print "   Desc:", desc
+        start = data['events'][i]['start']['local']
+        # print "   Start:", start
+        end = data['events'][i]['end']['local']
+        # print "   End:", end
+        list = [name, desc, start, end]
+        events.append(list)
+    # print events
+    return events
 
 getData()

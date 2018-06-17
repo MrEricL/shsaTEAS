@@ -128,8 +128,10 @@ def events():
         ID = getUserID(session['user'])
     except:
         return redirect( url_for('root'))
+    events = getData()
+    print "Events: ", events
     event = table_builder(get_events()).decode('utf-8')
-    return render_template('events.html', event = event)
+    return render_template('calendar.html', events = events)
 
 
 @app.route('/calenderdb', methods = ['POST','GET'])
@@ -138,8 +140,6 @@ def calenderdb():
         ID = getUserID(session['user'])
     except:
         return redirect( url_for('root'))
-
-
     print request.args
 
 
@@ -152,7 +152,6 @@ def forum():
         ID = getUserID(session['user'])
     except:
         return redirect( url_for('root'))
-    
 
     rawCategories = getAllCat()
 
@@ -172,7 +171,6 @@ def forum():
 
         else:
             return 'test'
-        
     else:
         return render_template('forum.html', cat = cat)
 
@@ -202,9 +200,6 @@ def addtopic():
     print "============================"
 
     return redirect( url_for('forum', category = cat))
-
-
-
 
 if __name__=='__main__':
 	app.run(debug=True)

@@ -91,7 +91,7 @@
         center: 'title',
         right: 'month,basicWeek,basicDay,addEventButton'
       },
-      defaultDate: '2018-03-12', //will need to change to curr date
+      <!--defaultDate: '2018-06-17', //will need to change to curr date-->
       navLinks: true, // can click day/week names to navigate views
       editable: true,
       droppable: true, // this allows things to be dropped onto the calendar
@@ -102,7 +102,7 @@
                 $(this).remove();
               }
             },
-      eventLimit: true, // allow "more" link when too many events
+      eventLimit: false, // allow "more" link when too many events
       customButtons: {
               addEventButton: {
                 text: 'add event...',
@@ -127,11 +127,12 @@
               }
             },
       events: [
-        {
+      <!--
+      {
           title: 'All Day Event',
           start: '2018-03-01',
           editable: false,
-          backgroundColor: "red"
+          color: "red"
         },
         {
           title: 'Long Event',
@@ -174,15 +175,25 @@
           title: 'Dinner',
           start: '2018-03-12T20:00:00'
         },
-        {
-          title: 'Birthday Party',
+      {
+          title: '{{ events[1] }}',
           start: '2018-03-13T07:00:00'
         },
         {
           title: 'Click for Google',
           url: 'http://google.com/',
           start: '2018-03-28'
-        }
+      },
+-->
+
+      {% for event in events %}
+      {
+      title: '{{ event[0] }}',
+      start: '{{ event[2] }}',
+      end: '{{ event[3] }}',
+      editable: false,
+      },
+      {% endfor %}
       ],
       eventDrop: function(event, delta, revertFunc) {
         addToDatabase(event.id, event.title, event.start, event.end)
@@ -280,26 +291,7 @@ $('#calendar').fullCalendar('refetchEvents');
 </head>
 <body>
 
-  <div id='external-events'>
-    <p>
-      <strong>Draggable Events</strong>
-    </p>
-    
-    <div class='fc-event'>My Event 1</div>
-    <div class='fc-event'>My Event 2</div>
-    <div class='fc-event'>My Event 3</div>
-    <div class='fc-event'>My Event 4</div>
-    <div class='fc-event'>My Event 5</div>
-    <p>
-      <input type='checkbox' id='drop-remove' />
-      <label for='drop-remove'>remove after drop</label>
-    </p>
-  </div>
-
-  <div id='calendar-container'>
-    <div id='calendar'></div>
-  </div>
-  </div>
+  <div id='calendar'></div>
 
 </body>
 </html>
