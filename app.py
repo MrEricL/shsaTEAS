@@ -98,7 +98,12 @@ def calendar():
         ID = getUserID(session['user'])
     except:
         return redirect( url_for('root'))
-    return render_template("calendar.html")
+
+
+    eventl = get_name_events(get_events())
+
+
+    return render_template("calendar.html", a = eventl[4], b =  eventl[1], c = eventl[2], d= eventl[3])
 
 #============================================================================
 @app.route('/home', methods = ['POST','GET'])
@@ -143,16 +148,19 @@ def home():
 
 @app.route('/events', methods = ['POST','GET'])
 def events():
+
     try:
         ID = getUserID(session['user'])
     except:
         return redirect( url_for('root'))
+
     event = table_builder(get_events()).decode('utf-8')
     return render_template('events.html', event = event)
 
 
 @app.route('/calenderdb', methods = ['POST','GET'])
 def calenderdb():
+
     try:
         ID = getUserID(session['user'])
     except:
