@@ -25,7 +25,7 @@ def topicTableBuilder(data, category):
 	return ret
 
 def postTableBuilder(data):
-	ret = '<table class="table table-hover"> <col width="80"><col width="750"> <tr> <th align="left"> Post </th> <th align="left"> Author </th>  <th> Date </th>	</tr>'
+	ret = '<table class="table table-hover"> <col width="80"><col width="750"> <tr> <th align="left"> Author  </th> <th align="left"> Post </th>  <th> Date </th>	</tr>'
 
 	for each in data:
 
