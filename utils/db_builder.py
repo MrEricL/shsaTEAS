@@ -433,6 +433,8 @@ if __name__ == '__main__':
     tableCreation()
 
 
+    print getAllTopicInCat(0)
+
     #addCalender (0, 0, 'Title', '2018-12-06', '2018-12-06')
     #print getCalender (0, 0)
 

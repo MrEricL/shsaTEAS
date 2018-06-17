@@ -147,24 +147,64 @@ def calenderdb():
 # 1 = View All Topic in Category
 # 2 = View All Post in Topic
 @app.route('/forum', methods = ['POST','GET'])
-def forum(location=0):
+def forum():
     try:
         ID = getUserID(session['user'])
     except:
         return redirect( url_for('root'))
     
-    cat = categoryTableBuilder(getAllCat())
 
-    if location == 0:
+    rawCategories = getAllCat()
+
+    #Browsing category
+    if len(request.args) == 0:
+        cat = categoryTableBuilder(rawCategories)
         return render_template('forum.html', cat = cat)
+
+    #Browsing topic in category
+    elif len(request.args) == 1:
+
+        topic = getAllTopicInCat(request.args['category'])
+        categoryname = rawCategories[int(request.args['category'])]['name']
+
+        if topic == []:
+            return render_template('topic.html', topic = None, name = categoryname, catint = int(request.args['category']))
+
+        else:
+            return 'test'
+        
     else:
         return render_template('forum.html', cat = cat)
 
 @app.route('/forumconfig', methods = ['POST','GET'])
 def forumconfig():
     if len(request.args) == 1:
-        print "hi"
+        print "test======================"
+        print request.args['category']
+        print "=========================="
+        return redirect( url_for('forum', category = request.args['category']))
+    else:
+        pass
     return 'testing'
+
+@app.route('/addtopic', methods = ['POST','GET'])
+def addtopic():
+    ID = getUserID(session['user'])
+    title = request.form['title']
+    body = request.form['body']
+    cat = request.form['category']
+
+    addTopic(ID, cat, title, body)
+
+
+    print "TESTING TOPICS=============="
+    print getAllTopicInCat(catID)
+    print "============================"
+
+    return redirect( url_for('forum', category = cat))
+
+
+
 
 if __name__=='__main__':
 	app.run(debug=True)
